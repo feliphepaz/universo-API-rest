@@ -1,45 +1,35 @@
 <?php
 
-function api_password_lost($request) {
+function api_password_reset($request) {
     $login = $request['login'];
-    $url = $request['url'];
-
-    if(empty($login)) {
-        $response = new WP_Error('error', 'Informe o e-mail ou login', ['status' => 406]);
-        return rest_ensure_response($response);
-    }
-
-    $user = get_user_by('email', $login);
-    
-    if(empty($user)) {
-        $user = get_user_by('login', $login);
-    }
+    $password = $request['password'];
+    $key = $request['key'];
+    $user = get_user_by('login', $login);
 
     if(empty($user)) {
         $response = new WP_Error('error', 'Usuário não existe', ['status' => 401]);
         return rest_ensure_response($response);
     }
 
-    $user_login = $user->user_login;
-    $user_email = $user->user_email;
-    $key = get_password_reset_key($user);
+    $check_key = check_password_reset_key($key, $login);
 
-    $message = "Utilize o link abaixo para resetar a sua senha: \r\n";
-    $urlMsg = esc_url_raw($url . "/?key=$key&login=" . rawurlencode($user_login) . "\r\n");
-    $body = $message . $urlMsg;
+    if(is_wp_error($check_key)) {
+        $response = new WP_Error('error', 'Token expirado', ['status' => 401]);
+        return rest_ensure_response($response);
+    }
 
-    wp_mail($user_email, 'Password Reset', $body);
+    reset_password($user, $password);
 
-    return rest_ensure_response('Redefinição de senha enviada para o e-mail.');
+    return rest_ensure_response('Senha alterada.');
 }
 
 
-function register_api_password_lost() {
+function register_api_password_reset() {
     register_rest_route('v1', '/password/reset', [
         'methods' => WP_REST_Server::CREATABLE,
-        'callback' => 'api_password_lost',
+        'callback' => 'api_password_reset',
     ]);
 }
-add_action('rest_api_init', 'register_api_password_lost');
+add_action('rest_api_init', 'register_api_password_reset');
 
 ?>

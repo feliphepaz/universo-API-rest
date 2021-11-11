@@ -11,6 +11,7 @@ add_filter('rest_endpoints', function ($endpoints) {
 $dirbase = get_template_directory();
 require_once $dirbase . '/endpoints/user_get.php';
 require_once $dirbase . '/endpoints/user_post.php';
+require_once $dirbase . '/endpoints/password_lost.php';
 require_once $dirbase . '/endpoints/password_reset.php';
 
 function change_api() {
