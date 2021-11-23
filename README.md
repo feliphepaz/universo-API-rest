@@ -1,6 +1,6 @@
 # Universo WordPress Rest API 🪐
 
-Para criar a API que seria consumida no site da [Universo Academy]() foi usado o banco de dados do WordPress e o plugin JWT Authentication para utilizar o JSON Web Token. Os seus métodos de cadastro e autenticação de usuários foi o que facilitou o desenvolvimento do sistema de login da plataforma EAD. Os endpoints aqui criados são o retorno de funções que seriam utilizadas nesse sistema:
+Para criar a API que seria consumida no site da [Universo Academy](https://github.com/feliphepaz/universoAcademy) foi usado o banco de dados do WordPress e o plugin JWT Authentication para utilizar o JSON Web Token. Os seus métodos de cadastro e autenticação de usuários foi o que facilitou o desenvolvimento do sistema de login da plataforma EAD. Os endpoints aqui criados são o retorno de funções que seriam utilizadas nesse sistema:
 
 Requisição | Endpoint | Method | O que faz
 :------ | :------ | :------ | :------
