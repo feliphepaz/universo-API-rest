@@ -10,7 +10,7 @@ password_lost | /password/lost | POST | Gera o link para redefinir a senha do us
 password_reset | /password/reset | POST | Cria uma nova senha para o usuário
 
 ## 🌀 Como funciona?
-1. O fluxo de login sempre começa pelo cadastro, e ao criar um novo usuário, a API realiza o `user_post` para criar o usuário no banco de dados. 
+1. Ao fazer o cadastro, a API realiza o `user_post` para criar o usuário no banco de dados. 
 2. Agora com o usuário já criado, ele pode fazer o login. Aqui se inicia um processo mais complexo, começando pelo POST no JWT Authentication do qual irá gerar um token.
 3. Este token será salvo no `localStorage` do usuário e será incluído na opção Authorization ao fazer a requisição de `user_get`, permitindo assim o acesso aos dados do usuário logado.
 4. Com o token salvo no navegador, a plataforma consegue fazer o login automático toda vez que aquele usuário acessa o site. Porém como o token expira em 24 horas, é sempre necessário fazer a validação.
